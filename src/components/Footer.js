@@ -4,8 +4,11 @@ const Footer = () => {
   return (
     <Wrapper>
       <p>
-        &copy; {new Date().getFullYear()} John Smilga. All rights reserved.
-        Built with Gatsby
+        &copy; {new Date().getFullYear()} Shaw Boxing. All rights reserved.
+      </p>
+        <p>
+        <small>Built in the JAMStack with Gatsby, AirTable CMS and Netlify by <a href="https://danielcarlyle.carbonmade.com/" rel="noreferrer noopener" target="_blank">Daniel Carlyle</a>
+        </small>
       </p>
     </Wrapper>
   )

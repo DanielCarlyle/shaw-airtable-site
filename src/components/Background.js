@@ -3,8 +3,36 @@ import BackgroundImage from "gatsby-background-image"
 import styled, { keyframes } from "styled-components"
 import { useStaticQuery, graphql } from "gatsby"
 
-const Background = () => {
-  return <h2>background image component</h2>
+const query = graphql`
+  {
+    file(relativePath: {eq: "mainBcg.png"}) {
+      id
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`
+
+const Background = ( {children} ) => {
+  const {file: {childImageSharp:{fluid},
+},
+} = useStaticQuery(query)
+  //console.log(fluid);
+  return (
+    <Wrapper>
+    <BackgroundImage
+      Tag="div"
+      fluid={fluid}
+      className="bcg"
+      preserveStackingContext={true}
+      >
+      {children}
+    </BackgroundImage>
+    </Wrapper>
+  )
 }
 
 const fadeIn = keyframes`
@@ -19,8 +47,9 @@ const fadeIn = keyframes`
 const Wrapper = styled.section`
   .bcg {
     /* MUST!!!!!! */
-    min-height: 100vh;
+    min-height: 50vh;
     margin-top: -5rem;
+    //background: rgba(0,0,0,0.5);
     display: grid;
     place-items: center;
     animation: ${fadeIn} 2s ease-in-out 1 forwards;

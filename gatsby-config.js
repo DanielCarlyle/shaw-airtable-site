@@ -38,5 +38,19 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-source-airtable`,
+      options: {
+        apiKey: process.env.GATSBY_AIRTABLE_API,
+        concurrency: 5,
+        tables: [
+          {
+            baseId: process.env.GATSBY_AIRTABLE_BASE_ID,
+            table: `fights`,
+            mapping: {images: `fileNode`}
+          }
+        ]
+      }
+    }
   ],
 }
