@@ -3,9 +3,37 @@ import { Link } from "gatsby"
 import Title from "./Title"
 import styled from "styled-components"
 import Image from "gatsby-image"
-import SearchButtons from "./SearchButtons"
-const Projects = () => {
-  return <h2>projects component</h2>
+//import SearchButtons from "./SearchButtons"
+const Projects = ({projects:data, title, page}) => {
+  const [projects, setProjects] = React.useState(data);
+  return (
+  <Wrapper className="section">
+  <Title title={title || 'fights'} />
+  <div className="section-center">
+    {projects.map(item => {
+    const {id} = item;
+    const { fights, Description } = item.data;
+    const fluid = item.data.images.localFiles[0].childImageSharp.fluid;
+    return (
+    <article key={id}>
+       <div className="container">
+       <Image fluid={fluid} className="img" />
+       <div className="info">
+       <h3>{fights}</h3>
+       <p>{Description}</p>
+      </div>
+      </div>
+    </article>
+  )
+    })}
+  </div>
+  {!page && (
+      <Link to="/projects" className="btn">
+        All Projects
+      </Link>
+    )}
+  </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
@@ -16,7 +44,7 @@ const Wrapper = styled.section`
     display: grid;
     gap: 2rem;
     /* safari workaround */
-    grid-gap: 2rem;
+    grid-gap: 1rem;
     .img {
       height: 20rem;
       border-radius: var(--radius);

@@ -10,13 +10,41 @@ import {
   GridProjects,
 } from "../components"
 import SEO from "../components/seo"
-const HomePage = () => {
+const HomePage = ({data}) => {
+  console.log(data);
+  const{
+    allAirtable:{nodes:projects},
+  } = data
   return (
     <Layout>
       <Hero />
-      <About /> 
+      <About />
+      <Projects projects={projects} title="Fights"/>
     </Layout>
   )
 }
+
+export const query = graphql`
+  {
+    allAirtable(filter: {table: {eq: "Fights"}}) {
+      nodes {
+        id
+        data {
+          Description
+          fights
+          images {
+            localFiles {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 export default HomePage
